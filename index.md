@@ -1,0 +1,65 @@
+---
+title: "Word Predictor"
+author: "Don Resnik"
+highlighter: highlight.js
+hitheme: tomorrow
+job: Software Engineer
+knit: slidify::knit2slides
+mode: selfcontained
+subtitle: Data Science Capstone Project
+framework: io2012
+widgets: mathjax
+---
+
+## Word Predictor
+### Data Science Capstone Project
+
+In this project I had the following tasks
+
+ - Sample a large dataset
+ - Clean the data
+ - Build algorithm for generating n-grams
+ - Organize the data for searching by n-gram
+ - Build Shiny interface to enter phrase and see predictions of the next word
+
+---
+
+## Sample and Clean the data
+
+I was given large datasets of blog, twitter and news data
+ - Sampled 15000 rows of each of the data sets
+ - Built a corpus of the combined data sets
+ - Cleaned the corpus using the tm package and some of the built in functions including:
+    - Remove punctuation
+    - Remove numbers
+    - Remove excess whitespace
+    - Transform the corpus to lower case
+    
+This provided a more generic data set with a better chance of finding matches
+
+---
+
+## Algotirthm and Storage of N-Grams
+
+After the data was cleaned, I built bi, tri and quad n-grams.  An n-gram is a sequence of words within a document.
+ - Found the frequency of each n-gram within the corpus
+ - Built a data table for the n-grams, with frequency and the final word of the n-gram split off in additional columns.  This was key for the lookup funciton within the Word Predictor application.
+ - Stored the results in a csv file for ingest into RSQLite database in Shiny app.  
+ - Results in a minimal delay in initail processing in the application while the csv is loaded into the RSQLite database
+
+---
+
+## Organize the data for searching by n-gram
+
+In the Shiny app, provide a way to query the data by phrase
+ - Load the csv into a RSQLite database.  The csv file already had all the data and columns needed for the RSQLite queries, so no additional data processing was needed.
+ - Use an ngram backoff model to test all lenghs of the phrase that have associated n-grams stored in the database
+    - First test the longest possible n-gram and back-off the the smallest
+    - Take the top five frequency results of each n-gram query and combine in a set
+ - Present the set of results to the user in the Shiny application with two panels
+   - Side panel to enter the phrase
+   - Main panel to present the predicted results
+   
+Applicaiton is available to test here:
+
+https://dresnik-coursera-datascience.shinyapps.io/WordChooser/

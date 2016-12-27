@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Word Predictor</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Word Predictor">
+  <meta name="author" content="Don Resnik">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Word Predictor</h1>
+    <h2>Data Science Capstone Project</h2>
+    <p>Don Resnik<br/>Software Engineer</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Word Predictor</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>Data Science Capstone Project</h3>
+
+<p>In this project I had the following tasks</p>
+
+<ul>
+<li>Sample a large dataset</li>
+<li>Clean the data</li>
+<li>Build algorithm for generating n-grams</li>
+<li>Organize the data for searching by n-gram</li>
+<li>Build Shiny interface to enter phrase and see predictions of the next word</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Sample and Clean the data</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>I was given large datasets of blog, twitter and news data</p>
+
+<ul>
+<li>Sampled 15000 rows of each of the data sets</li>
+<li>Built a corpus of the combined data sets</li>
+<li>Cleaned the corpus using the tm package and some of the built in functions including:
+
+<ul>
+<li>Remove punctuation</li>
+<li>Remove numbers</li>
+<li>Remove excess whitespace</li>
+<li>Transform the corpus to lower case</li>
+</ul></li>
+</ul>
+
+<p>This provided a more generic data set with a better chance of finding matches</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Algotirthm and Storage of N-Grams</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>After the data was cleaned, I built bi, tri and quad n-grams.  An n-gram is a sequence of words within a document.</p>
+
+<ul>
+<li>Found the frequency of each n-gram within the corpus</li>
+<li>Built a data table for the n-grams, with frequency and the final word of the n-gram split off in additional columns.  This was key for the lookup funciton within the Word Predictor application.</li>
+<li>Stored the results in a csv file for ingest into RSQLite database in Shiny app.<br></li>
+<li>Results in a minimal delay in initail processing in the application while the csv is loaded into the RSQLite database</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Organize the data for searching by n-gram</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>In the Shiny app, provide a way to query the data by phrase</p>
+
+<ul>
+<li>Load the csv into a RSQLite database.  The csv file already had all the data and columns needed for the RSQLite queries, so no additional data processing was needed.</li>
+<li>Use an ngram backoff model to test all lenghs of the phrase that have associated n-grams stored in the database
+
+<ul>
+<li>First test the longest possible n-gram and back-off the the smallest</li>
+<li>Take the top five frequency results of each n-gram query and combine in a set</li>
+</ul></li>
+<li>Present the set of results to the user in the Shiny application with two panels
+
+<ul>
+<li>Side panel to enter the phrase</li>
+<li>Main panel to present the predicted results</li>
+</ul></li>
+</ul>
+
+<p>Applicaiton is available to test here:</p>
+
+<p><a href="https://dresnik-coursera-datascience.shinyapps.io/WordChooser/">https://dresnik-coursera-datascience.shinyapps.io/WordChooser/</a></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Word Predictor'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Sample and Clean the data'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Algotirthm and Storage of N-Grams'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Organize the data for searching by n-gram'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
