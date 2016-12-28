@@ -89,16 +89,16 @@
 
 <slide class="" id="slide-3" style="background:;">
   <hgroup>
-    <h2>Algotirthm and Storage of N-Grams</h2>
+    <h2>Algorithm and Storage of N-Grams</h2>
   </hgroup>
   <article data-timings="">
     <p>After the data was cleaned, I built bi, tri and quad n-grams.  An n-gram is a sequence of words within a document.</p>
 
 <ul>
 <li>Found the frequency of each n-gram within the corpus</li>
-<li>Built a data table for the n-grams, with frequency and the final word of the n-gram split off in additional columns.  This was key for the lookup funciton within the Word Predictor application.</li>
+<li>Built a data table for the n-grams, with frequency and the final word of the n-gram split off in additional columns.  This was key for the lookup function within the Word Predictor application.</li>
 <li>Stored the results in a csv file for ingest into RSQLite database in Shiny app.<br></li>
-<li>Results in a minimal delay in initail processing in the application while the csv is loaded into the RSQLite database</li>
+<li>Results in a minimal delay in initial processing in the application while the csv is loaded into the RSQLite database</li>
 </ul>
 
   </article>
@@ -114,7 +114,7 @@
 
 <ul>
 <li>Load the csv into a RSQLite database.  The csv file already had all the data and columns needed for the RSQLite queries, so no additional data processing was needed.</li>
-<li>Use an ngram backoff model to test all lenghs of the phrase that have associated n-grams stored in the database
+<li>Use an ngram backoff model to test all lengths of the phrase that have associated n-grams stored in the database
 
 <ul>
 <li>First test the longest possible n-gram and back-off the the smallest</li>
@@ -128,7 +128,7 @@
 </ul></li>
 </ul>
 
-<p>Applicaiton is available to test here:</p>
+<p>Application is available to test here:</p>
 
 <p><a href="https://dresnik-coursera-datascience.shinyapps.io/WordChooser/">https://dresnik-coursera-datascience.shinyapps.io/WordChooser/</a></p>
 
@@ -154,7 +154,7 @@
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=3 title='Algotirthm and Storage of N-Grams'>
+        data-slide=3 title='Algorithm and Storage of N-Grams'>
          3
       </a>
     </li>
